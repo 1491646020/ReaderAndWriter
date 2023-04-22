@@ -8,7 +8,7 @@ public class WRProblem {
      */
 
     private final Semaphore wr = new Semaphore(1);
-    private final Semaphore x = new Semaphore(1);
+    private final Semaphore xie = new Semaphore(1);
     private int writeCount = 0;
 
     /**
@@ -105,12 +105,11 @@ public class WRProblem {
                 if (writeCount == 0) {
                     wr.acquire();
                 }
+                xie.acquire();
                 writeCount++;
-                //加一个信号量保证只能有一个人在写
-                x.acquire();
                 write(); //写过程
-                x.release();
                 writeCount--;
+                xie.release();
                 if (writeCount == 0) {
                     wr.release();
                 }

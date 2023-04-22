@@ -21,7 +21,6 @@ public class RWProblem {
      */
 
     private final Semaphore wr = new Semaphore(1);
-    private final Semaphore x = new Semaphore(1);
     private int readCount = 0;
 
     /**
@@ -120,9 +119,7 @@ public class RWProblem {
                 Thread.sleep(startTime);
                 System.out.println(num + "号线程发出写操作申请");
                 wr.acquire();
-                x.acquire();
                 write(); //写过程
-                x.release();
                 wr.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
